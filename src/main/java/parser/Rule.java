@@ -10,19 +10,19 @@ import java.util.List;
  */
 public class Rule {
     public Rule(String stringRule) {
-
-        int index = stringRule.indexOf("#");
+        String stringRuleCopy = stringRule;
+        int index = stringRuleCopy.indexOf("#");
         if (index != -1) {
             try {
-            semanticAction = Integer.parseInt(stringRule.substring(index + 1));
+            semanticAction = Integer.parseInt(stringRuleCopy.substring(index + 1));
             }catch (NumberFormatException ex){
                 semanticAction = 0;
             }
-            stringRule = stringRule.substring(0, index);
+            stringRuleCopy = stringRuleCopy.substring(0, index);
         } else {
             semanticAction = 0;
         }
-        String[] splited = stringRule.split("->");
+        String[] splited = stringRuleCopy.split("->");
 //        try {
             LHS = NonTerminal.valueOf(splited[0]);
 //        }catch (Exception e){
