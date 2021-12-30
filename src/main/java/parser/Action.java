@@ -12,20 +12,26 @@ public class Action {
   }
 
   public String toString() {
-    switch (action) {
-      case accept:
-        return "acc";
-      case shift:
-        return "s" + number;
-      case reduce:
-        return "r" + number;
+
+    if (action == Act.accept){
+      return action.label;
+    }
+    else if (action == Act.shift || action == Act.reduce) {
+      return action.label + number;
     }
     return action.toString() + number;
   }
 }
 
 enum Act {
-  shift,
-  reduce,
-  accept
+
+  accept ("acc"),
+  reduce ("r"),
+  shift ("s");
+
+  public final String label;
+
+  Act(String label) {
+    this.label = label;
+  }
 }
