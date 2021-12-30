@@ -7,13 +7,13 @@ import java.util.List;
  * Created by mohammad hosein on 6/27/2015.
  */
 public class Memory {
-    private List<ThreeAddressCode> codeBlock;
+    private final List<ThreeAddressCode> codeBlock;
     private int lastTempIndex;
     private int lastDataAddress;
-    private final int stratTempMemoryAddress = 500;
-    private final int stratDataMemoryAddress = 200;
-    private final int dataSize = 4;
-    private final int tempSize = 4;
+    final static int stratTempMemoryAddress = 500;
+    final static int stratDataMemoryAddress = 200;
+    final static int dataSize = 4;
+    final static int tempSize = 4;
 
     public Memory() {
         codeBlock = new ArrayList<ThreeAddressCode>();
@@ -77,15 +77,15 @@ class ThreeAddressCode {
     {
         if(operation == null) return "";
         StringBuffer res = new StringBuffer("(");
-        res.append(operation.toString()).append(",");
+        res.append(operation).append(",");
         if(Operand1 != null)
-            res.append(Operand1.toString());
+            res.append(Operand1);
         res.append(",");
         if(Operand2 != null)
-            res.append(Operand2.toString());
+            res.append(Operand2);
         res.append(",");
         if(Operand3 != null)
-            res.append(Operand3.toString());
+            res.append(Operand3);
         res.append(")");
 
         return res.toString();
