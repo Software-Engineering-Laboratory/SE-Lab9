@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import Log.Log;
+import Log.LogUtil;
 import codeGenerator.CodeGenerator;
-import errorHandler.ErrorHandler;
-import scanner.lexicalAnalyzer;
+import errorHandler.ErrorHandlerUtil;
+import scanner.LexicalAnalyzer;
 import scanner.token.Token;
 
 
@@ -19,7 +19,7 @@ public class Parser {
   private List<Rule> rules;
   private Stack<Integer> parsStack;
   private ParseTable parseTable;
-  private lexicalAnalyzer lexicalAnalyzer;
+  private LexicalAnalyzer lexicalAnalyzer;
   private CodeGenerator cg;
 
   public Parser() {
@@ -42,16 +42,16 @@ public class Parser {
   }
 
   public void startParse(java.util.Scanner sc) {
-    lexicalAnalyzer = new lexicalAnalyzer(sc);
+    lexicalAnalyzer = new LexicalAnalyzer(sc);
     Token lookAhead = lexicalAnalyzer.getNextToken();
     boolean finish = false;
     Action currentAction;
     while (!finish) {
       try {
-        Log.print(/*"lookahead : "+*/ lookAhead.toString() + "\t" + parsStack.peek());
+        LogUtil.print(/*"lookahead : "+*/ lookAhead.toString() + "\t" + parsStack.peek());
 //                Log.print("state : "+ parsStack.peek());
         currentAction = parseTable.getActionTable(parsStack.peek(), lookAhead);
-        Log.print(currentAction.toString());
+        LogUtil.print(currentAction.toString());
         //Log.print("");
 
         switch (currentAction.action) {
@@ -66,22 +66,22 @@ public class Parser {
               parsStack.pop();
             }
 
-            Log.print(/*"state : " +*/ parsStack.peek() + "\t" + rule.LHS);
+            LogUtil.print(/*"state : " +*/ parsStack.peek() + "\t" + rule.LHS);
 //                        Log.print("LHS : "+rule.LHS);
             parsStack.push(parseTable.getGotoTable(parsStack.peek(), rule.LHS));
-            Log.print(/*"new State : " + */parsStack.peek() + "");
+            LogUtil.print(/*"new State : " + */parsStack.peek() + "");
 //                        Log.print("");
             try {
               cg.semanticFunction(rule.semanticAction, lookAhead);
             } catch (Exception e) {
-              Log.print("Code Genetator Error");
+              LogUtil.print("Code Genetator Error");
             }
             break;
           case accept:
             finish = true;
             break;
         }
-        Log.print("");
+        LogUtil.print("");
 
       } catch (Exception ignored) {
 
@@ -105,7 +105,7 @@ public class Parser {
 
 
     }
-    if (!ErrorHandler.hasError)
+    if (!ErrorHandlerUtil.hasError)
       cg.printMemory();
 
 
