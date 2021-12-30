@@ -76,10 +76,10 @@ public class CodeGenerator {
                 save();
                 break;
             case 15:
-                _while();
+                whileStatement();
                 break;
             case 16:
-                jpf_save();
+                jpfSave();
                 break;
             case 17:
                 jpHere();
@@ -91,7 +91,7 @@ public class CodeGenerator {
                 equal();
                 break;
             case 20:
-                less_than();
+                lessThan();
                 break;
             case 21:
                 and();
@@ -322,11 +322,11 @@ public class CodeGenerator {
         if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
             ErrorHandlerUtil.printError("In " + operand + " two operands must be integer");
         }
-        if (operand.equals("add")) {
+        if ("add".equals(operand)) {
             memory.add3AddressCode(Operation.ADD, s1, s2, temp);
-        } else if (operand.equals("sub")) {
+        } else if ("sub".equals(operand)) {
             memory.add3AddressCode(Operation.SUB, s1, s2, temp);
-        } else if (operand.equals("mult")) {
+        } else if ("mult".equals(operand)) {
             memory.add3AddressCode(Operation.MULT, s1, s2, temp);
 //            memory.saveMemory();
         } else {
@@ -343,12 +343,12 @@ public class CodeGenerator {
         ss.push(new Address(memory.saveMemory(), VarType.Address));
     }
 
-    public void _while() {
+    public void whileStatement() {
         memory.add3AddressCode(ss.pop().num, Operation.JPF, ss.pop(), new Address(memory.getCurrentCodeBlockAddress() + 1, VarType.Address), null);
         memory.add3AddressCode(Operation.JP, ss.pop(), null, null);
     }
 
-    public void jpf_save() {
+    public void jpfSave() {
         Address save = new Address(memory.saveMemory(), VarType.Address);
         memory.add3AddressCode(ss.pop().num, Operation.JPF, ss.pop(), new Address(memory.getCurrentCodeBlockAddress(), VarType.Address), null);
         ss.push(save);
@@ -373,7 +373,7 @@ public class CodeGenerator {
         ss.push(temp);
     }
 
-    public void less_than() {
+    public void lessThan() {
         Address temp = new Address(memory.getTemp(), VarType.Bool);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
