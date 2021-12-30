@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Rule {
     public Rule(String stringRule) {
+
         int index = stringRule.indexOf("#");
         if (index != -1) {
             try {

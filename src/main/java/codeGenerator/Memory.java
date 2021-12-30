@@ -34,12 +34,11 @@ public class Memory {
     }
 
     public int getTemp() {
-        lastTempIndex += tempSize;
-        return lastTempIndex - tempSize;
+        return lastTempIndex;
     }
     public  int getDateAddress(){
-        lastDataAddress += dataSize;
-        return lastDataAddress-dataSize;
+
+        return lastDataAddress;
     }
     public int saveMemory() {
         addCodeBlock(new ThreeAddressCode());
@@ -103,8 +102,7 @@ class ThreeAddressCode {
         res.append(",");
         if(Operand3 != null)
             res.append(Operand3);
-        res.append(")");
+       return res.append(")").toString();
 
-        return res.toString();
     }
 }
