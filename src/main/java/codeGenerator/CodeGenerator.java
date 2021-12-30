@@ -459,11 +459,8 @@ public class CodeGenerator {
         Address s = ss.pop();
         SymbolType t = symbolTable.getMethodReturnType(symbolStack.peek(), methodName);
         VarType temp = VarType.Int;
-        switch (t) {
-            case Int:
-                break;
-            case Bool:
-                temp = VarType.Bool;
+        if (t == SymbolType.Bool){
+            temp = VarType.Bool;
         }
         if (s.varType != temp) {
             ErrorHandlerUtil.printError("The type of method and return address was not match");
