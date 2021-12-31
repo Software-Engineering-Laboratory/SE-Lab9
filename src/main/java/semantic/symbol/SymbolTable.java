@@ -49,7 +49,7 @@ public class SymbolTable {
     }
 
     public void addMethodParameter(String className, String methodName, String parameterName) {
-        klasses.get(className).Methodes.get(methodName).addParameter(parameterName);
+        getKlasses(className, methodName).addParameter(parameterName);
     }
 
     public void addMethodLocalVariable(String className, String methodName, String localVariableName) {
@@ -80,21 +80,24 @@ public class SymbolTable {
 //            return null;
 //        }
     }
+    public Method getKlasses(String className, String methodName){
+       return getKlasses(className, methodName) ;
+    }
 
     public Symbol get(String className, String methodName, String variable) {
-        Symbol res = klasses.get(className).Methodes.get(methodName).getVariable(variable);
+        Symbol res = getKlasses(className, methodName).getVariable(variable);
         if (res == null)
             res = get(variable, className);
         return res;
     }
 
     public Symbol getNextParam(String className, String methodName) {
-        return klasses.get(className).Methodes.get(methodName).getNextParameter();
+        return getKlasses(className, methodName).getNextParameter();
     }
 
     public void startCall(String className,String methodName) {
 //        try {
-            klasses.get(className).Methodes.get(methodName).reset();
+            getKlasses(className,methodName).reset();
 //        }catch (NullPointerException n)
 //        {
 //            n.printStackTrace();
@@ -102,16 +105,16 @@ public class SymbolTable {
     }
 
     public int getMethodCallerAddress(String className, String methodName) {
-        return klasses.get(className).Methodes.get(methodName).callerAddress;
+        return getKlasses(className, methodName).callerAddress;
     }
 
     public int getMethodReturnAddress(String className, String methodName) {
-        return klasses.get(className).Methodes.get(methodName).returnAddress;
+        return getKlasses(className, methodName).returnAddress;
     }
 
     public SymbolType getMethodReturnType(String className, String methodName) {
 //        try {
-            return klasses.get(className).Methodes.get(methodName).returnType;
+            return getKlasses(className, methodName).returnType;
 //        }catch (NullPointerException ed){
 //            ed.printStackTrace();
 //            return null;
@@ -120,7 +123,7 @@ public class SymbolTable {
     }
 
     public int getMethodAddress(String className, String methodName) {
-        return klasses.get(className).Methodes.get(methodName).codeAddress;
+        return getKlasses(className, methodName).codeAddress;
     }
 
 
