@@ -67,10 +67,10 @@ public class CodeGenerator {
             mult();
 
         } else if (func == 13) {
-            label();
+            saveOrLabel(memory.getCurrentCodeBlockAddress(), VarType.Address);
 
         } else if (func == 14) {
-            save();
+            saveOrLabel(memory.saveMemory(), VarType.Address);
 
         } else if (func == 15) {
             whileStatement();
@@ -331,14 +331,10 @@ public class CodeGenerator {
         }
         ss.push(temp);
     }
-
-    public void label() {
-        ss.push(new Address(memory.getCurrentCodeBlockAddress(), VarType.Address));
+    public void saveOrLabel(int cAddress, VarType varType){
+        ss.push(new Address(cAddress, varType));
     }
 
-    public void save() {
-        ss.push(new Address(memory.saveMemory(), VarType.Address));
-    }
 
     public void whileStatement() {
         memory.add3AddressCode(ss.pop().num, Operation.JPF, ss.pop(), new Address(memory.getCurrentCodeBlockAddress() + 1, VarType.Address), null);

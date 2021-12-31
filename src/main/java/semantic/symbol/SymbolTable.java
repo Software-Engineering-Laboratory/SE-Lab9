@@ -49,7 +49,7 @@ public class SymbolTable {
     }
 
     public void addMethodParameter(String className, String methodName, String parameterName) {
-        getKlasses(className, methodName).addParameter(parameterName);
+        klasses.get(className).Methodes.get(methodName).addParameter(parameterName);
     }
 
     public void addMethodLocalVariable(String className, String methodName, String localVariableName) {
