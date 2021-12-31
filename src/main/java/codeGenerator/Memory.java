@@ -7,30 +7,18 @@ import java.util.List;
  * Created by mohammad hosein on 6/27/2015.
  */
 public class Memory {
-    public List<ThreeAddressCode> getCodeBlock() {
-        return codeBlock;
-    }
-
     private final List<ThreeAddressCode> codeBlock;
     private int lastTempIndex;
     private int lastDataAddress;
-    private final static int stratTempMemoryAddress = 500;
-    final static int startDataMemoryAddress = 200;
+    final static int stratTempMemoryAddress = 500;
+    final static int stratDataMemoryAddress = 200;
     final static int dataSize = 4;
     final static int tempSize = 4;
-
-    public void addCodeBlock(ThreeAddressCode tad){
-        getCodeBlock().add(tad);
-    }
-
-    public void removeCodeBlock(int tad){
-        getCodeBlock().remove(tad);
-    }
 
     public Memory() {
         codeBlock = new ArrayList<ThreeAddressCode>();
         lastTempIndex = stratTempMemoryAddress;
-        lastDataAddress = startDataMemoryAddress;
+        lastDataAddress = stratDataMemoryAddress;
     }
 
     public int getTemp() {
@@ -41,22 +29,17 @@ public class Memory {
         return lastDataAddress;
     }
     public int saveMemory() {
-        addCodeBlock(new ThreeAddressCode());
+        codeBlock.add(new ThreeAddressCode());
         return codeBlock.size() - 1;
     }
 
     public void add3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
-        addCodeBlock(new ThreeAddressCode(op,opr1,opr2,opr3));
+        codeBlock.add(new ThreeAddressCode(op,opr1,opr2,opr3));
     }
 
     public void add3AddressCode(int i, Operation op, Address opr1, Address opr2, Address opr3) {
-        removeCodeBlock(i);
-        addCodeBlockByIndex(i, new ThreeAddressCode(op, opr1, opr2,opr3));
-
-    }
-
-    private void addCodeBlockByIndex(int i, ThreeAddressCode threeAddressCode) {
-        getCodeBlock().add(i, threeAddressCode);
+        codeBlock.remove(i);
+        codeBlock.add(i, new ThreeAddressCode(op, opr1, opr2,opr3));
     }
 
 
