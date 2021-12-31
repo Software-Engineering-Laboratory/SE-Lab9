@@ -144,9 +144,7 @@ public class CodeGenerator {
         symbolStack.push(methodName);
     }
 
-    //    public void spid(Token next){
-//        symbolStack.push(next.value);
-//    }
+
     private void checkID() {
         symbolStack.pop();
         if (ss.peek().getVarType() == VarType.Non) {
@@ -220,7 +218,6 @@ public class CodeGenerator {
         callStack.push(className);
         callStack.push(methodName);
 
-        //symbolStack.push(methodName);
     }
 
     private void call() {
@@ -247,7 +244,6 @@ public class CodeGenerator {
         memory.add3AddressCode(Operation.ASSIGN, new Address(memory.getCurrentCodeBlockAddress() + 2, VarType.Address, TypeAddress.Imidiate), new Address(symbolTable.getMethodCallerAddress(className, methodName), VarType.Address), null);
         memory.add3AddressCode(Operation.JP, new Address(symbolTable.getMethodAddress(className, methodName), VarType.Address), null, null);
 
-        //symbolStack.pop();
 
 
     }
@@ -256,7 +252,6 @@ public class CodeGenerator {
         //TODO: method ok
 
         String methodName = callStack.pop();
-//        String className = symbolStack.pop();
         try {
             Symbol s = symbolTable.getNextParam(callStack.peek(), methodName);
             VarType t = VarType.Int;
@@ -274,7 +269,6 @@ public class CodeGenerator {
             }
             memory.add3AddressCode(Operation.ASSIGN, param, new Address(s.address, t), null);
 
-//        symbolStack.push(className);
 
         } catch (IndexOutOfBoundsException e) {
             ErrorHandlerUtil.printError("Too many arguments pass for method");
@@ -287,14 +281,10 @@ public class CodeGenerator {
 
         Address s1 = ss.pop();
         Address s2 = ss.pop();
-//        try {
         if (s1.getVarType() != s2.getVarType()) {
             ErrorHandlerUtil.printError("The type of operands in assign is different ");
         }
-//        }catch (NullPointerException d)
-//        {
-//            d.printStackTrace();
-//        }
+
         memory.add3AddressCode(Operation.ASSIGN, s1, s2, null);
 
     }

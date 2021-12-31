@@ -6,6 +6,5 @@ package Log;
 public class LogUtil {
     public static void print(String s)
     {
-//        System.out.println(s);
     }
 }

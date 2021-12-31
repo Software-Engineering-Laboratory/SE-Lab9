@@ -96,12 +96,8 @@ public class SymbolTable {
     }
 
     public void startCall(String className,String methodName) {
-//        try {
             getKlasses(className,methodName).reset();
-//        }catch (NullPointerException n)
-//        {
-//            n.printStackTrace();
-//        }
+
     }
 
     public int getMethodCallerAddress(String className, String methodName) {
