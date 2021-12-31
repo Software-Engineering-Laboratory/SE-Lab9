@@ -81,7 +81,7 @@ public class SymbolTable {
 //        }
     }
     public Method getKlasses(String className, String methodName){
-       return getKlasses(className, methodName) ;
+       return klasses.get(className).Methodes.get(methodName) ;
     }
 
     public Symbol get(String className, String methodName, String variable) {
