@@ -1,16 +1,24 @@
 package parser;
 
 public class Action {
-  public Act action;
+  private Act action;
   //if action = shift : number is state
   //if action = reduce : number is number of rule
-  public int number;
+  private int number;
+
 
   public Action(Act action, int number) {
     this.action = action;
     this.number = number;
   }
 
+  public int getNumber() {
+    return number;
+  }
+
+  public Act getAction(){
+    return this.action;
+  }
   public String toString() {
 
     if (action == Act.accept){
