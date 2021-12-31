@@ -28,21 +28,24 @@ public class LexicalAnalyzer {
 
         while (matcher.find()) {
             for (Type t : Type.values()) {
-
                 if (matcher.group(t.name()) != null) {
-                    if (matcher.group(Type.COMMENT.name()) != null) {
-                        break;
+                    if (areBothArgsNull(matcher.group(Type.COMMENT.name()), matcher.group(Type.ErrorID.name()))) {
+                        return new Token(t, matcher.group(t.name()));
 
                     }
+
                     if(matcher.group(Type.ErrorID.name())!=null){
                         ErrorHandlerUtil.printError("The id must start with character");
-                        break;
                     }
+                    break;
 
-                    return new Token(t, matcher.group(t.name()));
                 }
             }
         }
         return new Token(Type.EOF,"$");
+    }
+
+    public Boolean areBothArgsNull(String s1, String s2) {
+        return s1 == null && s2 == null;
     }
 }

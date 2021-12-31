@@ -34,11 +34,12 @@ public class Memory {
     }
 
     public int getTemp() {
-        return lastTempIndex;
+        lastTempIndex += tempSize;
+        return lastTempIndex - tempSize;
     }
     public  int getDateAddress(){
-
-        return lastDataAddress;
+        lastDataAddress += dataSize;
+        return lastDataAddress-dataSize;
     }
     public int saveMemory() {
         addCodeBlock(new ThreeAddressCode());
